@@ -2,6 +2,8 @@ PROJECT(rapp)
 
 set (RAPP_VERSION_MAJOR 0)
 set (RAPP_VERSION_MINOR 1)
+set (RAPP_VERSION_PATCH 0)
+set (RAPP_VERSION ${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR}.${RAPP_VERSION_PATCH})
 
 cmake_minimum_required(VERSION 2.8)
 
@@ -58,12 +60,12 @@ set (SOURCES ${SOURCES}
 add_library (lrapp OBJECT ${SOURCES})
 
 # Shared Library
-add_library (rapp.${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR} SHARED $<TARGET_OBJECTS:lrapp>)
-target_link_libraries(rapp.${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
+add_library (rapp.${RAPP_VERSION} SHARED $<TARGET_OBJECTS:lrapp>)
+target_link_libraries(rapp.${RAPP_VERSION} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
 
 # Static Library
-add_library (rapp.${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR}-static STATIC $<TARGET_OBJECTS:lrapp>)
-target_link_libraries(rapp.${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR}-static ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
+add_library (rapp.${RAPP_VERSION}-static STATIC $<TARGET_OBJECTS:lrapp>)
+target_link_libraries(rapp.${RAPP_VERSION}-static ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
 
 
 
@@ -142,8 +144,8 @@ endif()
 #set(MACOSX_RPATH ON)
 
 # Install stuff
-install (TARGETS rapp.${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR}-static  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
-install (TARGETS rapp.${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
+install (TARGETS rapp.${RAPP_VERSION}-static  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
+install (TARGETS rapp.${RAPP_VERSION} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
 install (DIRECTORY ${INCLUDES}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME} FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ihh")
 
 install (FILES ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}) #copy global include header
