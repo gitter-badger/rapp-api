@@ -149,6 +149,18 @@ endif()
 
 #set(MACOSX_RPATH ON)
 
+
+# Prepare the CMake config files
+configure_file(RappConfig.cmake.in "${PROJECT_BINARY_DIR}/RappConfig.cmake" @ONLY)
+configure_file(RappConfigVersion.cmake.in "${PROJECT_BINARY_DIR}/RappConfigVersion.cmake" @ONLY)
+ 
+# Install the CMake config files
+install(FILES
+  "${PROJECT_BINARY_DIR}/RappConfig.cmake"
+  "${PROJECT_BINARY_DIR}/RappConfigVersion.cmake"
+  DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/CMake/Rapp")
+
+
 # Install stuff
 install (TARGETS ${RAPP_SHARED_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
 install (TARGETS ${RAPP_STATIC_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
