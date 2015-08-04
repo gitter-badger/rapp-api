@@ -60,14 +60,20 @@ set (SOURCES ${SOURCES}
 add_library (lrapp OBJECT ${SOURCES})
 
 # Shared Library
-add_library (rapp.${RAPP_VERSION} SHARED $<TARGET_OBJECTS:lrapp>)
-target_link_libraries(rapp.${RAPP_VERSION} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
+set(RAPP_SHARED_NAME rapp)
+add_library (${RAPP_SHARED_NAME} SHARED $<TARGET_OBJECTS:lrapp>)
+target_link_libraries(${RAPP_SHARED_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
+SET_TARGET_PROPERTIES(
+  ${RAPP_SHARED_NAME}
+  PROPERTIES
+    SOVERSION ${RAPP_VERSION_MAJOR}
+    VERSION ${RAPP_VERSION}
+)
 
 # Static Library
-add_library (rapp.${RAPP_VERSION}-static STATIC $<TARGET_OBJECTS:lrapp>)
-target_link_libraries(rapp.${RAPP_VERSION}-static ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-
-
+set(RAPP_STATIC_NAME rapp-static)
+add_library (${RAPP_STATIC_NAME} STATIC $<TARGET_OBJECTS:lrapp>)
+target_link_libraries(${RAPP_STATIC_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
 
 # Link Tests/Examples
 target_link_libraries( rapp_face_detect ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
@@ -144,8 +150,8 @@ endif()
 #set(MACOSX_RPATH ON)
 
 # Install stuff
-install (TARGETS rapp.${RAPP_VERSION}-static  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
-install (TARGETS rapp.${RAPP_VERSION} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
-install (DIRECTORY ${INCLUDES}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME} FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ihh")
+install (TARGETS ${RAPP_SHARED_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
+install (TARGETS ${RAPP_STATIC_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/)
 
+install (DIRECTORY ${INCLUDES}/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME} FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ihh")
 install (FILES ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}) #copy global include header
