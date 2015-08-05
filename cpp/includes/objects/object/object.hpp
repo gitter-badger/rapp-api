@@ -20,12 +20,10 @@ class object
     /**
      * @brief Consruct using object name and recognition score
      */
-    object ( 
-            std::string name,
-            float score
-          )
-    : name__( name ),
-      score__( score )
+    object ( std::string name, float score )
+    : 
+    name__( name ),
+    score__( score )
     { }
     
     
@@ -41,6 +39,8 @@ class object
         return ( this->name__ == rhs.name__ &&
                  this->score__ == rhs.score__ );
     }
+    
+    const std::string & name() const {return name__;}
     
   private:
     
