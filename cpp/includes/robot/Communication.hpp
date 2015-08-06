@@ -21,6 +21,11 @@ class Communication
 {
   public:
   
+    /// Constructor - create instance of CommunicationImpl here
+    Communication(int argc, char * argv[]);
+  
+    ~Communication();
+  
     /// List of all possible languages
     enum class Language {ENGLISH, GREEK};
       
