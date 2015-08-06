@@ -2,6 +2,8 @@
 #define RAPP_ROBOT_COMMUNICATION
 #include "Includes.ihh"
 
+#include <string>
+
 /**
  * @class Communication
  * @brief Class which defines the interface for Robot communication capabilities (speaking, listening)
