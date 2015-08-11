@@ -22,7 +22,7 @@ class Navigation
 {
   public:
   
-    /// Constructor - create instance of VisionImpl here
+    /// Constructor - create instance of NavigationImpl here
     Navigation(int argc, char * argv[]);
   
     ~Navigation();
