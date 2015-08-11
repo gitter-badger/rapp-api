@@ -1,4 +1,4 @@
-#ifndef RAPP_ROBOT_NAVIAGTION
+#ifndef RAPP_ROBOT_NAVIGATION
 #define RAPP_ROBOT_NAVIGATION
 #include "Includes.ihh"
 
