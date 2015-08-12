@@ -35,7 +35,7 @@ class Communication
     bool playAudio(const std::string & file_path, double position, double volume, double balance, bool play_in_loop); 
     
     /// Say given sentence in default language
-    bool textToSpeech(const std::string & str);
+    //bool textToSpeech(const std::string & str);
     
     /// Say given sentence in selected language
     bool textToSpeech(const std::string & str, Language language = Language::ENGLISH);

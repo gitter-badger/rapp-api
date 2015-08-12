@@ -16,7 +16,7 @@
 
 /**
  * @class Vision
- * @brief Class which defines the interface for Robot vision capabilities (capture Image, object detection, object recognition, camera settings)
+ * @brief Class which defines the interface for Robot vision capabilities (capture Image, camera settings, Image segmentation and basic concept recognition)
  * @date 03-August-2015
  * @author Jan Figat <jan.figat@gmail.com>
  * @note This class uses pimpl pattern to make ABI as stable as possible when deploying new library versions
@@ -49,5 +49,6 @@ class Vision
 
 } // namespace robot
 } // namespace rapp
+
 
 #endif // RAPP_ROBOT_VISION
