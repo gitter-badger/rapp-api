@@ -4,7 +4,6 @@
 
 #include <string>
 
-
 /**
  * @class Navigation
  * @brief Class which defines the interface for Robot navigation capabilities (movement, localization)
@@ -31,7 +30,7 @@ class Navigation
     void moveVel(float x, float y, float theta);
     void moveHead(float yaw,float pitch);
     void moveStop();
-    void moveJoint(std::string joint, float angle);
+    void moveJoint(std::string joint[], float angle[]);
     void removeStiffness(std::string joint);
     void takePredefinedPosture(std::string pose);
     void visOdom();
