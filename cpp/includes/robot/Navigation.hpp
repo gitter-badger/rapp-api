@@ -3,7 +3,7 @@
 #include "Includes.ihh"
 
 #include <string>
-
+#include <vector>
 /**
  * @class Navigation
  * @brief Class which defines the interface for Robot navigation capabilities (movement, localization)
