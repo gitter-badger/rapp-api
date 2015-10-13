@@ -19,42 +19,39 @@ set(INCLUDE_HEADERS ${INCLUDE_HEADERS} /usr/include/)
 
 include_directories(SYSTEM ${INCLUDE_HEADERS})
 set (INCLUDES ${INCLUDES} includes)
+set (EXAMPLES ${EXAMPLES} examples)
+set (TESTS ${TESTS} tests)
 add_subdirectory(${INCLUDES})
 
-# Face Detect Test
-add_executable ( rapp_face_detect  tests/face_detect.cpp
-                                   ${INCLUDES}/service/asio_service_raw/asio_service_raw.cpp
-                                   ${INCLUDES}/service/service_controller/service_controller.cpp
-                                   ${INCLUDES}/objects/picture/picture.cpp)
+# Sources are Library-only Executables - Not examples or tests
+set (SOURCES ${SOURCES}     ${INCLUDES}/service/asio_service_raw/asio_service_raw.cpp)
 
-# Object Detect Test
-add_executable ( rapp_object_detect  tests/object_detect.cpp
-                                   ${INCLUDES}/service/asio_service_raw/asio_service_raw.cpp
-                                   ${INCLUDES}/service/service_controller/service_controller.cpp
-                                   ${INCLUDES}/objects/picture/picture.cpp)
+# Examples
+add_executable ( ex_face_detect  ${EXAMPLES}/face_detect.cpp)
+add_executable ( ex_qr_detect    ${EXAMPLES}/qr_detect.cpp)
+add_executable ( ex_speech_recog ${EXAMPLES}/speech_to_text.cpp)
+add_executable ( ex_ontology     ${EXAMPLES}/ontology_example.cpp)
+add_executable ( ex_set_denoise  ${EXAMPLES}/set_denoise_example.cpp)
 
-# QrCode Detect Test
-add_executable ( rapp_qr_detect    tests/qr_detect.cpp
-                                   ${INCLUDES}/service/asio_service_raw/asio_service_raw.cpp
-                                   ${INCLUDES}/service/service_controller/service_controller.cpp
-                                   ${INCLUDES}/objects/picture/picture.cpp)
+# Enable Unit Testing
+enable_testing ()
 
-# Fetch Data Test
-add_executable ( rapp_fetch_data   tests/fetch_data.cpp
-                                   ${INCLUDES}/service/service_controller/service_controller.cpp)
-# Ontology Subclass Of Test
-add_executable ( rapp_ontology_test tests/ontology_test.cpp
-                                   ${INCLUDES}/service/service_controller/service_controller.cpp)
+# Unit Tests
+add_executable ( object_test          ${TESTS}/object_test.cpp)
+add_executable ( cloud_test           ${TESTS}/cloud_test.cpp)
+add_executable ( service_test         ${TESTS}/service_test.cpp)
+add_test (unit_object_test            object_test) 
+add_test (unit_cloud_test             cloud_test) 
+add_test (unit_service_test           service_test)
 
-# Find Libaries for which Cmake already has a meta-package
+# Find PThreads (needed by Boost)
 find_package( Threads REQUIRED )
-find_package( Boost 1.49 COMPONENTS system thread random REQUIRED )
 
-# Build Libraries (both static and shared)
-set (SOURCES ${SOURCES} 
-                        ${INCLUDES}/service/asio_service_raw/asio_service_raw.cpp
-                        ${INCLUDES}/service/service_controller/service_controller.cpp
-                        ${INCLUDES}/objects/picture/picture.cpp)
+# Find Boost
+find_package( Boost 1.49 COMPONENTS system thread random unit_test_framework REQUIRED )
+
+# Find OpenCV 2.0
+find_package( OpenCV REQUIRED )
 
 # Set library sources
 add_library (lrapp OBJECT ${SOURCES})
@@ -63,8 +60,7 @@ add_library (lrapp OBJECT ${SOURCES})
 set(RAPP_SHARED_NAME rapp)
 add_library (${RAPP_SHARED_NAME} SHARED $<TARGET_OBJECTS:lrapp>)
 target_link_libraries(${RAPP_SHARED_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-SET_TARGET_PROPERTIES(
-  ${RAPP_SHARED_NAME}
+SET_TARGET_PROPERTIES(${RAPP_SHARED_NAME}
   PROPERTIES
     SOVERSION ${RAPP_VERSION_MAJOR}
     VERSION ${RAPP_VERSION}
@@ -76,21 +72,58 @@ add_library (${RAPP_STATIC_NAME} STATIC $<TARGET_OBJECTS:lrapp>)
 target_link_libraries(${RAPP_STATIC_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
 
 # Link Tests/Examples
-target_link_libraries( rapp_face_detect ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-target_link_libraries( rapp_object_detect ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-target_link_libraries( rapp_qr_detect ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-target_link_libraries( rapp_fetch_data ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} )
-target_link_libraries( rapp_ontology_test ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} )
+target_link_libraries( ex_face_detect ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY} 
+                                      ${Boost_RANDOM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_qr_detect   ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY} 
+                                      ${Boost_RANDOM_LIBRARY}                                      
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_speech_recog 
+                                      ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_RANDOM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_ontology    ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_set_denoise ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
 
 
+target_link_libraries( object_test    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( service_test   ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( cloud_test     ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
 
 set(CMAKE_COLOR_MAKEFILE on)
 set(CMAKE_VERBOSE_MAKEFILE off)
 
+
+# TODO: Parse argument Release/Debug from Command line
 #set(CMAKE_BUILD_TYPE Release)
-#set(CMAKE_BUILD_TYPE Debug)
-
-
+set(CMAKE_BUILD_TYPE Debug)
 
 # Linux should be the default OS/Platform for RAPP::API
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -140,6 +173,7 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -mtune=native -march=native")
         set(BUILD_SHARED_LIBS OFF)
         message(STATUS "CXX Linker: " ${CMAKE_EXE_LINKER_FLAGS})
+
 # Intel Compiler May run on Linux - Maybe we should support it
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Intel")
     message (FATAL_ERROR "unsupported compiler")
