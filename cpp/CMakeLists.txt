@@ -2,6 +2,8 @@ PROJECT(rapp)
 
 set (RAPP_VERSION_MAJOR 0)
 set (RAPP_VERSION_MINOR 1)
+set (RAPP_VERSION_PATCH 0)
+set (RAPP_VERSION ${RAPP_VERSION_MAJOR}.${RAPP_VERSION_MINOR}.${RAPP_VERSION_PATCH})
 
 cmake_minimum_required(VERSION 2.8)
 
@@ -58,8 +60,7 @@ add_library (lrapp OBJECT ${SOURCES})
 set(RAPP_SHARED_NAME rapp)
 add_library (${RAPP_SHARED_NAME} SHARED $<TARGET_OBJECTS:lrapp>)
 target_link_libraries(${RAPP_SHARED_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-SET_TARGET_PROPERTIES(
-  ${RAPP_SHARED_NAME}
+SET_TARGET_PROPERTIES(${RAPP_SHARED_NAME}
   PROPERTIES
     SOVERSION ${RAPP_VERSION_MAJOR}
     VERSION ${RAPP_VERSION}
@@ -71,13 +72,50 @@ add_library (${RAPP_STATIC_NAME} STATIC $<TARGET_OBJECTS:lrapp>)
 target_link_libraries(${RAPP_STATIC_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
 
 # Link Tests/Examples
-target_link_libraries( rapp_face_detect ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-target_link_libraries( rapp_object_detect ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-target_link_libraries( rapp_qr_detect ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-target_link_libraries( rapp_fetch_data ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} )
-target_link_libraries( rapp_ontology_test ${CMAKE_THREAD_LIBS_INIT} ${Boost_THREAD_LIBRARY} ${Boost_SYSTEM_LIBRARY} )
+target_link_libraries( ex_face_detect ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY} 
+                                      ${Boost_RANDOM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_qr_detect   ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY} 
+                                      ${Boost_RANDOM_LIBRARY}                                      
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_speech_recog 
+                                      ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_RANDOM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_ontology    ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_set_denoise ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
 
 
+target_link_libraries( object_test    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( service_test   ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( cloud_test     ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
 
 set(CMAKE_COLOR_MAKEFILE on)
 set(CMAKE_VERBOSE_MAKEFILE off)
