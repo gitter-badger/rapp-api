@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 2.8)
 
 add_subdirectory(faceDetector)
 add_subdirectory(objectDetector)
-add_subdirectory(fetchPersonalData)
-add_subdirectory(ontologySubclassOf)
+add_subdirectory(ontologyIsSubSuperClassOf)
+add_subdirectory(ontologySubClassesOf)
+add_subdirectory(ontologySuperClassesOf)
 add_subdirectory(qrDetector)
+add_subdirectory(setDenoiseProfile)
 add_subdirectory(speechToText)
-
+add_subdirectory(upServices)

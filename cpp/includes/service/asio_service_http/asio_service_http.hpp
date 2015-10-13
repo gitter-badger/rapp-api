@@ -17,7 +17,7 @@ namespace services {
  */
 class asio_service_http : public asio_socket
 {
-  public:
+public:
       
     /** 
      * Schedule this client as a job for execution using
@@ -44,7 +44,7 @@ class asio_service_http : public asio_socket
                                              boost::asio::placeholders::iterator ) );
     }
     
-  protected:  
+protected:  
 
     /// Hidden empty constructor is meant to be used only by inheriting classes
     asio_service_http ( ) = default;      
@@ -71,8 +71,7 @@ class asio_service_http : public asio_socket
                             boost::asio::ip::tcp::resolver::iterator endpoint_iterator
                         )
     {
-        if ( !socket_ )
-            throw std::runtime_error ( "asio_service_http::handle_resolve socket ptr null" );
+        assert( socket );
         if (!err)
         {
             auto endpoint = * endpoint_iterator;
@@ -96,8 +95,7 @@ class asio_service_http : public asio_socket
                             boost::asio::ip::tcp::resolver::iterator endpoint_iterator
                         )
     {
-        if ( !socket_ )
-            throw std::runtime_error ( "asio_service_http::handle_connect socket ptr null" );
+        assert ( socket_ );
         if ( !err )
         {
             boost::asio::async_write( *socket_.get(),
@@ -122,8 +120,7 @@ class asio_service_http : public asio_socket
     /// Callback for handling request and waiting for response @param err is a possible error
     void handle_write_request ( const boost::system::error_code & err )
     {
-        if ( !socket_ )
-            throw std::runtime_error ( "asio_service_http::handle_write_request socket ptr null" );
+        assert( socket_ );
         if ( !err )
         {
             // Read the response status line - Callback handler is ::handle_read_status_line
@@ -141,8 +138,7 @@ class asio_service_http : public asio_socket
     /// Callback for handling HTTP Header Response Data @param err is a possible error message
     void handle_read_status_line ( const boost::system::error_code & err )
     {
-        if ( !socket_ )
-            throw std::runtime_error ( "asio_service_http::handle_read_status_line socket ptr null" );    
+        assert ( socket_ );
         if (!err)
         {
             // Check that HTTP Header Response is OK.
@@ -153,7 +149,7 @@ class asio_service_http : public asio_socket
             response_stream >> status_code;
             std::string status_message;
             std::getline( response_stream, status_message );
-            
+
             if ( !response_stream || http_version.substr(0, 5) != "HTTP/" )
             {
                 invalid_request( "http Invalid response" );
@@ -179,22 +175,16 @@ class asio_service_http : public asio_socket
     /// Callback for Handling Headers @param err is a possible error message
     void handle_read_headers ( const boost::system::error_code & err )
     {
-        if ( !socket_ )
-            throw std::runtime_error ( "asio_service_http::handle_read_headers socket ptr null" );
+        assert ( socket_ );
         if ( !err )
         {
             // Start reading Content data until EOF (see handle_read_content)
-            boost::asio::async_read ( *socket_.get(),
-                                       response_,
-                                       boost::asio::transfer_at_least( 1 ),
-                                       boost::bind( &asio_service_http::handle_read_content, 
-                                                     this,
-                                                     boost::asio::placeholders::error ) );
-            // Now call the callback
-            if ( callback_ )
-                callback_( response_ );
-            else
-                throw std::runtime_error ( "asio_service_http there is no callback handler for this object" );
+            boost::asio::async_read_until ( *socket_.get(),
+                                             response_,
+                                             "\r\n\r\n",
+                                             boost::bind( &asio_service_http::handle_read_content, 
+                                                          this,
+                                                          boost::asio::placeholders::error ) );
         }
         else error_handler( err );
     }
@@ -202,17 +192,31 @@ class asio_service_http : public asio_socket
     /// Callback for Handling Actual Data Contents @param err is a possible error message
     void handle_read_content ( const boost::system::error_code & err )
     {
-        if ( !socket_ )
-            throw std::runtime_error ( "asio_service_http::handle_read_content socket ptr null" );
+        assert ( socket_ );
         if ( !err )
         {
             // Continue reading remaining data until EOF - It reccursively calls its self
             boost::asio::async_read ( *socket_.get(),
                                        response_,
                                        boost::asio::transfer_at_least( 1 ),
-                                        boost::bind( &asio_service_http::handle_read_content, 
+                                       boost::bind( &asio_service_http::handle_read_content, 
                                                      this,
                                                      boost::asio::placeholders::error ) );
+
+            // Parse HTTP Content.
+            std::string json ( ( std::istreambuf_iterator<char>( &response_ ) ), 
+                                 std::istreambuf_iterator<char>() );
+
+            // find the "\r\n\r\b"
+            std::size_t i = json.find("\r\n\r\n");
+            if ( i != std::string::npos )
+                json = json.substr( i + 4, std::string::npos );
+            else
+                throw std::runtime_error( "can't find double return carriage after header" );
+
+            // Now call the callback
+            assert( callback_ );
+            callback_( json );
         }
         else if ( err != boost::asio::error::eof )
             error_handler( err );
@@ -236,7 +240,6 @@ class asio_service_http : public asio_socket
         return uid;
     }
 
-
     
     /// Header that will be used
     std::string header_;
@@ -244,8 +247,8 @@ class asio_service_http : public asio_socket
     /// Actual post Data
     std::string post_;
     
-    /// Optional Callback Handler
-    std::function<void( boost::asio::streambuf & )> callback_;
+    /// Callback Handler - use with std::bind or boost variant
+    std::function<void( std::string )> callback_;
     
     /// Actual Socket
     std::unique_ptr<boost::asio::ip::tcp::socket> socket_;
