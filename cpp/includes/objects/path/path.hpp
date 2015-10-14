@@ -1,7 +1,7 @@
 #ifndef RAPP_OBJECT_POSE_PATH
 #define RAPP_OBJECT_PATH
 #include "objects/path/poseStamped.hpp"
-
+#include <vector>
 namespace rapp {
 	namespace object {
 
@@ -10,7 +10,7 @@ namespace rapp {
 		{
 			PoseStamped p[];
 			public:
-			Path(PoseStamped p[]):p(p){}
+			Path(std::vector<PoseStamped> p):p(p){}
 		};
 
 	}	
