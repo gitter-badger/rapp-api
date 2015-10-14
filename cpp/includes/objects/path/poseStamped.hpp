@@ -1,6 +1,6 @@
 #ifndef RAPP_OBJECT_POSE_STAMPED
 #define RAPP_OBJECT_POSE_STAMPED
-#include "objects/path/pose.hpp"
+#include "pose.hpp"
 
 namespace rapp {
 	namespace object {

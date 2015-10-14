@@ -1,8 +1,8 @@
 #ifndef RAPP_OBJECT_POSE
 #define RAPP_OBJECT_POSE
 
-#include "objects/path/point.hpp"
-#include "objects/path/quaternion.hpp"
+#include "point.hpp"
+#include "quaternion.hpp"
 
 namespace rapp {
 	namespace object {
