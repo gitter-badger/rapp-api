@@ -10,7 +10,7 @@ namespace rapp {
 		{
 			PoseStamped p[];
 			public:
-			Path(PoseStamped[] p):p(p){}
+			Path(PoseStamped p[]):p(p){}
 		};
 
 	}	
