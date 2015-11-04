@@ -5,4 +5,5 @@ add_subdirectory(qrCode)
 add_subdirectory(audio)
 add_subdirectory(object)
 add_subdirectory(path)
-
+add_subdirectory(pose)
+add_subdirectory(QRcodeMap)

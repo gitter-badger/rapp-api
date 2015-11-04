@@ -1,1 +1,4 @@
- 
+#include <string>
+#include <vector>
+#include "../../objects/pose/pose.hpp" 
+#include "../../objects/path/path.hpp" 

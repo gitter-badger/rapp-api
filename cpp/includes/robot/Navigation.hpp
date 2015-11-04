@@ -2,8 +2,6 @@
 #define RAPP_ROBOT_NAVIGATION
 #include "Includes.ihh"
 
-#include <string>
-#include <vector>
 /**
  * @class Navigation
  * @brief Class which defines the interface for Robot navigation capabilities (movement, localization)
@@ -26,16 +24,21 @@ class Navigation
   
     ~Navigation();
     
-    void moveTo(float x, float y, float theta);
-    void moveVel(float x, float y, float theta);
-    void moveHead(float yaw,float pitch);
-    void moveStop();
-    void moveJoint(std::vector<std::string> joint, std::vector<float> angle);
-    void removeStiffness(std::string joint);
-    void takePredefinedPosture(std::string pose);
-    void visOdom();
-    void lookAtPoint(float x, float y, float z);
-  
+    bool moveTo(float x, float y, float theta);
+    bool moveVel(float x, float y, float theta);
+    // bool moveHead(float yaw,float pitch);
+    bool moveStop();
+    bool moveJoint(std::vector<std::string> joint, std::vector<float> angle);
+    // bool removeStiffness(std::string joint);
+    bool takePredefinedPosture(std::string posture);
+    // bool visOdom();
+    bool lookAtPoint(float x, float y, float z);
+    bool rest();
+    bool moveAlongPath(rapp::objects::Path path);
+    rapp::objects::Pose getRobotPosition();
+    bool globalLocalization(rapp::objects::Pose pose);
+    rapp::objects::Path PathPlanner_2D(rapp::objects::Pose start, rapp::objects::Pose goal, rapp::objects::OccupancyGrid map);
+    rapp::objects::Pose QRcodeLocalization(cv::Mat image, rapp::objects::QRcodeMap QRmap);
     
   private:
     NavigationImpl * pimpl;

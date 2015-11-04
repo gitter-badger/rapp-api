@@ -8,7 +8,7 @@ namespace rapp {
 
 		class Path
 		{
-			PoseStamped p[];
+			std::vector<PoseStamped> p;
 			public:
 			Path(std::vector<PoseStamped> p):p(p){}
 		};
