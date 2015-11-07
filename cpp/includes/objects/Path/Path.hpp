@@ -9,10 +9,11 @@ namespace rapp {
 
 		class Path
 		{
-			Header info;
-			std::vector<PoseStamped> poses_;
+
 			public:
-			Path(Header header,std::vector<PoseStamped> poses):info(header),poses_(poses){}
+			Header header;
+			std::vector<PoseStamped> poses;
+			Path(Header header_,std::vector<PoseStamped> poses_):header(header_),poses(poses_){}
 		};
 
 	}	
