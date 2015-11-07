@@ -1,5 +1,5 @@
 #include <vector>
 #include <string>
-#include <../objects/Path/Path.h>
-#include <../objects/Pose/Pose.h>
-#include <../objects/PoseStamped/PoseStamped.h>
+#include <../objects/Path/Path.hpp>
+#include <../objects/Pose/Pose.hpp>
+#include <../objects/PoseStamped/PoseStamped.hpp>
