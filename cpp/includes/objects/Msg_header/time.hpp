@@ -12,7 +12,7 @@ namespace rapp {
 			uint32_t nsec;
 			
 			public:
-			header(uint32_t sec, uint32_t nsec):sec(sec),nsec(nsec){}
+			Time(uint32_t sec, uint32_t nsec):sec(sec),nsec(nsec){}
 		};
 
 	}
