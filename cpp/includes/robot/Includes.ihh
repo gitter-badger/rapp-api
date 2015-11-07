@@ -1,2 +1,5 @@
 #include <vector>
 #include <string>
+#include <rapp/objects/Path/Path.h>
+#include <rapp/objects/Path/Pose.h>
+#include <rapp/objects/Path/PoseStamped.h>
