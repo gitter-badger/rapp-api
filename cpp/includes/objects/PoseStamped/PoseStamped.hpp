@@ -1,5 +1,5 @@
-#ifndef RAPP_OBJECT_POSE
-#define RAPP_OBJECT_POSE
+#ifndef RAPP_OBJECT_POSESTAMPED
+#define RAPP_OBJECT_POSESTAMPED
 
 #include "../Pose/Pose.hpp"
 #include "../Msg_header/Header.hpp"

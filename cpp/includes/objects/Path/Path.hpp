@@ -1,4 +1,4 @@
-#ifndef RAPP_OBJECT_POSE_PATH
+#ifndef RAPP_OBJECT_PATH
 #define RAPP_OBJECT_PATH
 #include "../PoseStamped/PoseStamped.hpp"
 #include <vector>
