@@ -1,7 +1,7 @@
 #ifndef RAPP_OBJECT_HEADER
 #define RAPP_OBJECT_HEADER
 #include <string>
-#include <time.hpp>
+#include "time.hpp"
 
 namespace rapp {
 	namespace object {
