@@ -1,7 +1,7 @@
 #ifndef RAPP_ROBOT_NAVIGATION
 #define RAPP_ROBOT_NAVIGATION
 #include "Includes.ihh"
-
+#include <vector>
 /**
  * @class Navigation
  * @brief Class which defines the interface for Robot navigation capabilities (movement, localization)
