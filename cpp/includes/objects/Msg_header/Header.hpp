@@ -9,11 +9,12 @@ namespace rapp {
 
 		class Header
 		{
-			int seq;
-			Time t;
+			int sequance;
+			Time time;
 			std::string frame;
 			public:
-			Header(int seq, Time t, std::string frame):seq(seq),t(t),frame(frame){}
+
+			Header(int seq, Time stamp, std::string frame_id):sequance(seq),time(stamp),frame(frame_id){}
 		};
 
 	}

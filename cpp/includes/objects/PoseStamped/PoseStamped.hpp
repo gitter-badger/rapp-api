@@ -9,10 +9,10 @@ namespace rapp {
 
 		class PoseStamped
 		{
-			Pose p;
-			Header h;
+			Pose pose_;
+			Header header_;
 			public:
-			PoseStamped(Pose p, Header h):p(p),h(h){}
+			PoseStamped(Pose pose, Header header):pose_(pose),header_(header){}
 		};
 
 	}

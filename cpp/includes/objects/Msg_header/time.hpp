@@ -8,11 +8,11 @@ namespace rapp {
 
 		class Time
 		{
-			uint32_t sec;
-			uint32_t nsec;
+			uint32_t seconds;
+			uint32_t nseconds;
 			
 			public:
-			Time(uint32_t sec, uint32_t nsec):sec(sec),nsec(nsec){}
+			Time(uint32_t sec, uint32_t nsec):seconds(sec),nseconds(nsec){}
 		};
 
 	}

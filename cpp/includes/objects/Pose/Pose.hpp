@@ -10,10 +10,10 @@ namespace rapp {
 
 		class Pose
 		{
-			Point p;
-			Quaternion q;
+			Point position_;
+			Quaternion orientation_;
 			public:
-			Pose(Point p, Quaternion q):p(p),q(q){}
+			Pose(Point position, Quaternion orientation):position_(position),orientation_(orientation){}
 		};
 
 	}
