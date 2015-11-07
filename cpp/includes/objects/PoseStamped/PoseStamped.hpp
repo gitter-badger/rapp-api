@@ -12,7 +12,8 @@ namespace rapp {
 			public:
 			Pose pose;
 			Header header;
-			PoseStamped(Pose pose_, Header header_):pose(pose_),header(header_){}
+			PoseStamped(Pose pose_=pose, Header header_=header):pose(pose_),header(header_){}
+			PoseStamped () = default;
 		};
 
 	}
