@@ -33,9 +33,9 @@ class Navigation
     // bool visOdom();
     bool lookAtPoint(float x, float y, float z);
     bool rest(std::string posture);
-    bool moveAlongPath(rapp::objects::Path path);
-    rapp::objects::PoseStamped getRobotPose();
-    bool setGlobalPose(rapp::objects::Pose pose);
+    bool moveAlongPath(rapp::object::Path path);
+    rapp::object::PoseStamped getRobotPose();
+    bool setGlobalPose(rapp::object::Pose pose);
     // rapp::objects::Path pathPlanner_2D(rapp::objects::Pose start, rapp::objects::Pose goal, rapp::objects::OccupancyGrid map);
     // rapp::objects::Pose qrCodeLocalization(cv::Mat image, rapp::objects::QRcodeMap QRmap);
     
