@@ -1,5 +1,5 @@
-#ifndef RAPP_OBJECT_HEADER
-#define RAPP_OBJECT_HEADER
+#ifndef RAPP_OBJECT_TIME
+#define RAPP_OBJECT_TIME
 #include <string>
 
 namespace rapp {

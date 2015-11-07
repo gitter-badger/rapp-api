@@ -13,7 +13,7 @@ namespace rapp {
 			Time t;
 			std::string frame;
 			public:
-			header(int seq, time t, std::string frame):s(s),t(t),frame(frame){}
+			header(int seq, Time t, std::string frame):s(s),t(t),frame(frame){}
 		};
 
 	}
