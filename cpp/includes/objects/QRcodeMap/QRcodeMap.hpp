@@ -1,5 +1,5 @@
-#ifndef RAPP_OBJECT_QRMAP
-#define RAPP_OBJECT_QRMAP
+#ifndef RAPP_OBJECT_QRCODEMAP
+#define RAPP_OBJECT_QRCODEMAP
 #include "Includes.ihh"
 
 namespace rapp {

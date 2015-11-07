@@ -1,6 +1,7 @@
-#ifndef RAPP_OBJECT_POSE
-#define RAPP_OBJECT_POSE
-
+#ifndef RAPP_OBJECT_HEADER
+#define RAPP_OBJECT_HEADER
+#include <string>
+#include <time>
 
 namespace rapp {
 	namespace object {
