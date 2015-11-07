@@ -9,27 +9,27 @@ namespace rapp {
 
 		class PoseStamped
 		{
-			Header header_def;
-		
-			header_def.seq = 0;
-			header_def.frame_id = "/map";
-			header_def.stamp.sec = 0;
-			header_def.stamp.nsec = 0;
-			Pose pose_def;
-			
-			pose_def.header = header_def;
-			pose_def.pose.position.x = 0;
-			pose_def.pose.position.y = 0;
-			pose_def.pose.position.z = 0;
-
-			pose_def.pose.orientation.x = 0;
-			pose_def.pose.orientation.y = 0;	
-			pose_def.pose.orientation.z = 0;
-			pose_def.pose.orientation.w = 1;
 			public:
-			Pose pose;
 			Header header;
-			PoseStamped(Pose pose_=pose_def, Header header_=header_def):pose(pose_),header(header_){}
+		
+			header.seq = 0;
+			header.frame_id = "/map";
+			header.stamp.sec = 0;
+			header.stamp.nsec = 0;
+			Pose pose;
+			
+			pose.header = header;
+			pose.pose.position.x = 0;
+			pose.pose.position.y = 0;
+			pose.pose.position.z = 0;
+
+			pose.pose.orientation.x = 0;
+			pose.pose.orientation.y = 0;	
+			pose.pose.orientation.z = 0;
+			pose.pose.orientation.w = 1;
+
+
+			PoseStamped(Pose pose, Header header):pose(pose),header(header){}
 			PoseStamped () = default;
 
 

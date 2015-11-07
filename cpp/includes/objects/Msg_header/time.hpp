@@ -10,9 +10,10 @@ namespace rapp {
 		{
 
 			public:
-			uint32_t sec;
-			uint32_t nsec;
-			Time(uint32_t sec_, uint32_t nsec_):sec(sec_),nsec(nsec_){}
+			uint32_t sec=0;
+			uint32_t nsec=0;
+			Time(uint32_t sec, uint32_t nsec):sec(sec),nsec(nsec){}
+			Time()=default;
 		};
 
 	}

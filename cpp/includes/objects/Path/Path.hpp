@@ -13,7 +13,8 @@ namespace rapp {
 			public:
 			Header header;
 			std::vector<PoseStamped> poses;
-			Path(Header header_,std::vector<PoseStamped> poses_):header(header_),poses(poses_){}
+			Path(Header header,std::vector<PoseStamped> poses):header(header),poses(poses){}
+			Path()=default;
 		};
 
 	}	

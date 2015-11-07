@@ -11,10 +11,11 @@ namespace rapp {
 		{
 
 			public:
-			int seq;
+			int seq=0;
 			Time stamp;
-			std::string frame_id;
-			Header(int seq_, Time stamp_, std::string frame_id_):seq(seq_),stamp(stamp_),frame_id(frame_id_){}
+			std::string frame_id="/map";
+			Header(int seq, Time stamp, std::string frame_id):seq(seq),stamp(stamp),frame_id(frame_id){}
+			Header()=default;
 		};
 
 	}

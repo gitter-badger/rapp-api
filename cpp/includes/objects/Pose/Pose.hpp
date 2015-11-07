@@ -14,7 +14,8 @@ namespace rapp {
 			public:
 			Point position;
 			Quaternion orientation;
-			Pose(Point position_, Quaternion orientation_):position(position_),orientation(orientation_){}
+			Pose(Point position, Quaternion orientation):position(position),orientation(orientation){}
+			Pose()=default;
 		};
 
 	}
