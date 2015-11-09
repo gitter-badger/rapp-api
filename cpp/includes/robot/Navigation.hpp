@@ -64,7 +64,7 @@ namespace robot {
 class Navigation
 {
   public:
-      rapp::objects::Pose qrCodeLocalization(rapp::object::picture image, rapp::object::QRcodeMap QRmap);
+      rapp::object::Pose qrCodeLocalization(rapp::object::picture image, rapp::object::QRcodeMap QRmap);
 };
 } // namespace robot
 } // namespace rappPlatform
