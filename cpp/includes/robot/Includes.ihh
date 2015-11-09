@@ -4,3 +4,4 @@
 #include "../objects/pose/pose.hpp"
 #include "../objects/poseStamped/poseStamped.hpp"
 #include "../objects/picture/picture.hpp"
+#include "../objects/qrCodeMap/qrCodeMap.hpp"
