@@ -1,5 +1,5 @@
 #include <string>
 #include <vector>
-#include "../../objects/Pose/Pose.hpp" 
-#include "../../objects/Path/Path.hpp" 
-#include "../../objects/PoseStamped/PoseStamped.hpp" 
+#include "../../objects/pose/pose.hpp" 
+#include "../../objects/path/path.hpp" 
+#include "../../objects/poseStamped/poseStamped.hpp" 
