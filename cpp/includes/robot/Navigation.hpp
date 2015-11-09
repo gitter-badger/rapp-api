@@ -9,6 +9,10 @@
  * @note This class uses pimpl pattern to make ABI as stable as possible when deploying new library versions
  */
 
+
+////
+//  CORE AGENT API
+////
 namespace rapp {
 namespace robot {
 
@@ -24,20 +28,25 @@ class Navigation
     ~Navigation();
     
     bool moveTo(float x, float y, float theta);
+
     bool moveVel(float x, float y, float theta);
-    // bool moveHead(float yaw,float pitch);
+
     bool moveStop();
+
     bool moveJoint(std::vector<std::string> joint, std::vector<float> angle);
-    // bool removeStiffness(std::string joint);
+
     bool takePredefinedPosture(std::string posture, float speed);
-    // bool visOdom();
+
     bool lookAtPoint(float x, float y, float z);
+
     bool rest(std::string posture);
+
     bool moveAlongPath(rapp::object::Path path);
+
     rapp::object::PoseStamped getRobotPose();
+
     bool setGlobalPose(rapp::object::Pose pose);
-    // rapp::objects::Path pathPlanner_2D(rapp::objects::Pose start, rapp::objects::Pose goal, rapp::objects::OccupancyGrid map);
-    // rapp::objects::Pose qrCodeLocalization(cv::Mat image, rapp::objects::QRcodeMap QRmap);
+
     
   private:
     NavigationImpl * pimpl;
@@ -45,5 +54,19 @@ class Navigation
 
 } // namespace robot
 } // namespace rapp
+
+////
+//  DYNAMIC AGENT API
+////
+namespace rappPlatform {
+namespace robot {
+
+class Navigation
+{
+  public:
+      rapp::objects::Pose qrCodeLocalization(rapp::objects::picture image, rapp::objects::QRcodeMap QRmap);
+};
+} // namespace robot
+} // namespace rappPlatform
 
 #endif // RAPP_ROBOT_NAVIGATION
