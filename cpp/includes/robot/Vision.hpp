@@ -2,18 +2,6 @@
 #define RAPP_ROBOT_VISION
 #include "Includes.ihh"
 
-#include <string>
-
-#include "opencv2/core/core.hpp"
-#include "opencv2/features2d/features2d.hpp"
-#include "opencv2/nonfree/features2d.hpp"
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/nonfree/nonfree.hpp"
-#include "opencv2/calib3d/calib3d.hpp"
-#include <opencv2/imgproc/imgproc.hpp>
-
-//#include <vector>
-
 /**
  * @class Vision
  * @brief Class which defines the interface for Robot vision capabilities (capture Image, camera settings, Image segmentation and basic concept recognition)
@@ -43,6 +31,11 @@ class Vision
 	cv::Mat getTransform(std::string chainName, int space);
     
     
+    
+    std::vector< std::vector<float> > faceDetect(cv::Mat &image, std::string cameraId, int cameraResolution);
+    
+    rapp::object::QRCode3D qrCodeDetection(cv::Mat &cv_frame, cv::Mat &robotToCameraMatrix_);
+    
   private:
     VisionImpl * pimpl;
 };
@@ -50,5 +43,31 @@ class Vision
 } // namespace robot
 } // namespace rapp
 
+/*namespace rappPlatform {
+namespace robot {
+
+class VisionDynImpl;
+
+class VisionDyn
+{
+  public:
+  
+    /// Constructor - create instance of VisionImpl here
+    VisionDyn(int argc, char * argv[]);
+  
+    ~VisionDyn();
+    
+    std::vector< std::vector<double> > faceDetect(cv::Mat &image, std::string cameraId, int cameraResolution);
+    
+    QRCode3D qrCodeDetection(cv::Mat &cv_frame, zbar::ImageScanner &set_zbar, cv::Mat &robotToCameraMatrix_);
+    
+    
+  private:
+    VisionDynImpl * pimpl;
+};
+
+} // namespace robot
+} // namespace rappPlatform
+*/
 
 #endif // RAPP_ROBOT_VISION

@@ -1,1 +1,2 @@
-#include "../../objects/picture/picture.hpp" 
+#include "../../objects/picture/picture.hpp"
+#include "../../objects/QRCode3D/QRCode3D.hpp" 
