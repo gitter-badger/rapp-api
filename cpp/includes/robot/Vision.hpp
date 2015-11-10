@@ -54,7 +54,7 @@ class VisionDyn
     
 	std::vector< std::vector <float> > faceDetect(rapp::object::picture image, std::string cameraId, int cameraResolution);
     
-    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, cv::Mat &robotToCameraMatrix_, float landmarkTheoreticalSize);
+    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, cv::Mat &robotToCameraMatrix_, float landmarkTheoreticalSize = 0.16f);
     
   private:
     VisionDynImpl * pimpl;
