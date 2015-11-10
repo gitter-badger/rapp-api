@@ -30,6 +30,12 @@ public:
     {
         openCopy_( bytestream );
     }
+    
+    picture (std::vector<rapp::types::byte> bytearray, bool copy)
+    {
+		if (copy==true)
+			this->bytearray_ = bytearray;
+	}
 
     /// Copy constructor
     picture ( const picture & ) = default;

@@ -24,17 +24,12 @@ class Vision
   
     ~Vision();
     
-    cv::Mat captureImage(std::string cameraId, int cameraResolution);
+    rapp::object::picture captureImage(std::string cameraId, int cameraResolution);
 	
 	bool setCameraParams(int cameraId, int cameraParameterId, int newValue );
 	
 	cv::Mat getTransform(std::string chainName, int space);
     
-    
-    
-    std::vector< std::vector<float> > faceDetect(cv::Mat &image, std::string cameraId, int cameraResolution);
-    
-    rapp::object::QRCode3D qrCodeDetection(cv::Mat &cv_frame, cv::Mat &robotToCameraMatrix_);
     
   private:
     VisionImpl * pimpl;
@@ -43,7 +38,7 @@ class Vision
 } // namespace robot
 } // namespace rapp
 
-/*namespace rappPlatform {
+namespace rappPlatform {
 namespace robot {
 
 class VisionDynImpl;
@@ -57,10 +52,9 @@ class VisionDyn
   
     ~VisionDyn();
     
-    std::vector< std::vector<double> > faceDetect(cv::Mat &image, std::string cameraId, int cameraResolution);
+	std::vector< std::vector <float> > faceDetect(rapp::object::picture image, std::string cameraId, int cameraResolution);
     
-    QRCode3D qrCodeDetection(cv::Mat &cv_frame, zbar::ImageScanner &set_zbar, cv::Mat &robotToCameraMatrix_);
-    
+    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, cv::Mat &robotToCameraMatrix_, float landmarkTheoreticalSize);
     
   private:
     VisionDynImpl * pimpl;
@@ -68,6 +62,6 @@ class VisionDyn
 
 } // namespace robot
 } // namespace rappPlatform
-*/
+
 
 #endif // RAPP_ROBOT_VISION
