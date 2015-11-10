@@ -1,9 +1,5 @@
 #include <vector>
 #include <string>
-<<<<<<< HEAD
-#include "../objects/Path/Path.hpp"
-#include "../objects/Pose/Pose.hpp"
-#include "../objects/PoseStamped/PoseStamped.hpp"
 
 #include "../objects/QRCode3D/QRCode3D.hpp"
 #include "opencv2/core/core.hpp"
@@ -13,10 +9,10 @@
 #include "opencv2/nonfree/nonfree.hpp"
 #include "opencv2/calib3d/calib3d.hpp"
 #include <opencv2/imgproc/imgproc.hpp>
-=======
+
 #include "../objects/path/path.hpp"
 #include "../objects/pose/pose.hpp"
 #include "../objects/poseStamped/poseStamped.hpp"
 #include "../objects/picture/picture.hpp"
 #include "../objects/qrCodeMap/qrCodeMap.hpp"
->>>>>>> eb7f60c6f26b60f02f49eaca66e15297eecfd662
+
