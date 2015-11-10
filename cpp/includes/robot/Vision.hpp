@@ -28,7 +28,7 @@ class Vision
 	
 	bool setCameraParams(int cameraId, int cameraParameterId, int newValue );
 	
-	cv::Mat getTransform(std::string chainName, int space);
+	rapp::object::Matrix2D getTransform(std::string chainName, int space);
     
     
   private:
@@ -54,7 +54,7 @@ class VisionDyn
     
 	std::vector< std::vector <float> > faceDetect(rapp::object::picture image, std::string cameraId, int cameraResolution);
     
-    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, cv::Mat &robotToCameraMatrix_, float landmarkTheoreticalSize = 0.16f);
+    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, std::vector<std::vector<float>> robotToCameraMatrix, float landmarkTheoreticalSize = 0.16f);
     
   private:
     VisionDynImpl * pimpl;

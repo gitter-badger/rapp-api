@@ -6,6 +6,7 @@ add_subdirectory(audio)
 add_subdirectory(object)
 
 add_subdirectory(QRCode3D)
+add_subdirectory(matrix2D)
 add_subdirectory(path)
 add_subdirectory(pose)
 add_subdirectory(poseStamped)
