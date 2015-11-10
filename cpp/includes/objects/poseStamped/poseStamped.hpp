@@ -1,8 +1,8 @@
 #ifndef RAPP_OBJECT_POSESTAMPED
 #define RAPP_OBJECT_POSESTAMPED
 
-#include "../Pose/Pose.hpp"
-#include "../Msg_header/Header.hpp"
+#include "../pose/pose.hpp"
+#include "../msg_header/header.hpp"
 namespace rapp {
 	namespace object {
 
