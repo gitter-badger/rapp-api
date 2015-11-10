@@ -61,11 +61,9 @@ class Navigation
 namespace rappPlatform {
 namespace robot {
 
-class Navigation
-{
-  public:
+
       rapp::object::Pose qrCodeLocalization(rapp::object::QRcodeMap QRmap);
-};
+
 } // namespace robot
 } // namespace rappPlatform
 
