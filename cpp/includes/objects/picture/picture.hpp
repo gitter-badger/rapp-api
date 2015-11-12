@@ -14,6 +14,8 @@ class picture
 {
 public:
 
+	typedef std::shared_ptr<rapp::object::picture> Ptr;
+
     /// Construct from a file-path
     picture ( const std::string filepath )
     {

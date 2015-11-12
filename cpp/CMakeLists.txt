@@ -23,6 +23,8 @@ set (EXAMPLES ${EXAMPLES} examples)
 set (TESTS ${TESTS} tests)
 add_subdirectory(${INCLUDES})
 
+include_directories(${INCLUDES})
+
 # Sources are Library-only Executables - Not examples or tests
 set (SOURCES ${SOURCES}     ${INCLUDES}/service/asio_service_raw/asio_service_raw.cpp)
 
@@ -53,69 +55,12 @@ find_package( Boost 1.49 COMPONENTS system thread random unit_test_framework REQ
 # Find OpenCV 2.0
 find_package( OpenCV REQUIRED )
 
-# Set library sources
-add_library (lrapp OBJECT ${SOURCES})
-
-# Shared Library
-set(RAPP_SHARED_NAME rapp)
-add_library (${RAPP_SHARED_NAME} SHARED $<TARGET_OBJECTS:lrapp>)
-target_link_libraries(${RAPP_SHARED_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-SET_TARGET_PROPERTIES(${RAPP_SHARED_NAME}
-  PROPERTIES
-    SOVERSION ${RAPP_VERSION_MAJOR}
-    VERSION ${RAPP_VERSION}
-)
-
-# Static Library
-set(RAPP_STATIC_NAME rapp-static)
-add_library (${RAPP_STATIC_NAME} STATIC $<TARGET_OBJECTS:lrapp>)
-target_link_libraries(${RAPP_STATIC_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
-
-# Link Tests/Examples
-target_link_libraries( ex_face_detect ${CMAKE_THREAD_LIBS_INIT} 
-                                      ${Boost_THREAD_LIBRARY} 
-                                      ${Boost_SYSTEM_LIBRARY} 
-                                      ${Boost_RANDOM_LIBRARY}
-                                      ${RAPP_SHARED_NAME})
-
-target_link_libraries( ex_qr_detect   ${CMAKE_THREAD_LIBS_INIT} 
-                                      ${Boost_THREAD_LIBRARY} 
-                                      ${Boost_SYSTEM_LIBRARY} 
-                                      ${Boost_RANDOM_LIBRARY}                                      
-                                      ${RAPP_SHARED_NAME})
-
-target_link_libraries( ex_speech_recog 
-                                      ${CMAKE_THREAD_LIBS_INIT} 
-                                      ${Boost_THREAD_LIBRARY} 
-                                      ${Boost_SYSTEM_LIBRARY}
-                                      ${Boost_RANDOM_LIBRARY}
-                                      ${RAPP_SHARED_NAME})
-
-target_link_libraries( ex_ontology    ${CMAKE_THREAD_LIBS_INIT} 
-                                      ${Boost_THREAD_LIBRARY} 
-                                      ${Boost_SYSTEM_LIBRARY}
-                                      ${RAPP_SHARED_NAME})
-
-target_link_libraries( ex_set_denoise ${CMAKE_THREAD_LIBS_INIT} 
-                                      ${Boost_THREAD_LIBRARY} 
-                                      ${Boost_SYSTEM_LIBRARY}
-                                      ${RAPP_SHARED_NAME})
 
 
-target_link_libraries( object_test    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
-                                      ${RAPP_SHARED_NAME})
 
-target_link_libraries( service_test   ${CMAKE_THREAD_LIBS_INIT} 
-                                      ${Boost_SYSTEM_LIBRARY}
-                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
-                                      ${RAPP_SHARED_NAME})
 
-target_link_libraries( cloud_test     ${CMAKE_THREAD_LIBS_INIT} 
-                                      ${Boost_SYSTEM_LIBRARY}
-                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
-                                      ${RAPP_SHARED_NAME})
 
-ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
+
 
 set(CMAKE_COLOR_MAKEFILE on)
 set(CMAKE_VERBOSE_MAKEFILE off)
@@ -183,7 +128,88 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     message (FATAL_ERROR "unsupported compiler")
 endif()
 
-#set(MACOSX_RPATH ON)
+
+
+
+
+
+
+
+
+# Set library sources
+add_library (lrapp OBJECT ${SOURCES})
+
+# Shared Library
+set(RAPP_SHARED_NAME rapp)
+add_library (${RAPP_SHARED_NAME} SHARED $<TARGET_OBJECTS:lrapp>)
+target_link_libraries(${RAPP_SHARED_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
+SET_TARGET_PROPERTIES(${RAPP_SHARED_NAME}
+  PROPERTIES
+    SOVERSION ${RAPP_VERSION_MAJOR}
+    VERSION ${RAPP_VERSION}
+)
+
+# Static Library
+set(RAPP_STATIC_NAME rapp-static)
+add_library (${RAPP_STATIC_NAME} STATIC $<TARGET_OBJECTS:lrapp>)
+target_link_libraries(${RAPP_STATIC_NAME} ${Boost_SYSTEM_LIBRARY} ${Boost_RANDOM_LIBRARY})
+
+# Link Tests/Examples
+target_link_libraries( ex_face_detect ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY} 
+                                      ${Boost_RANDOM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_qr_detect   ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY} 
+                                      ${Boost_RANDOM_LIBRARY}                                      
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_speech_recog 
+                                      ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_RANDOM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_ontology    ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( ex_set_denoise ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_THREAD_LIBRARY} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${RAPP_SHARED_NAME})
+
+
+target_link_libraries( object_test    ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( service_test   ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+target_link_libraries( cloud_test     ${CMAKE_THREAD_LIBS_INIT} 
+                                      ${Boost_SYSTEM_LIBRARY}
+                                      ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} 
+                                      ${RAPP_SHARED_NAME})
+
+ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
+
+
+GET_PROPERTY(FULL_RAPP_SHARED_NAME TARGET ${RAPP_SHARED_NAME} PROPERTY LOCATION)
+GET_PROPERTY(FULL_RAPP_STATIC_NAME TARGET ${RAPP_STATIC_NAME} PROPERTY LOCATION)
+
+SET(RAPP_SHARED_LIBS ${RAPP_SHARED_LIBS} ${FULL_RAPP_SHARED_NAME})
+SET(RAPP_STATIC_LIBS ${RAPP_STATIC_LIBS} ${FULL_RAPP_STATIC_NAME})
+
+
+add_subdirectory(impl)
+
 
 
 # Prepare the CMake config files
