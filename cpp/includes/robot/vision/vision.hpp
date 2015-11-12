@@ -1,8 +1,13 @@
 #ifndef RAPP_ROBOT_VISION
 #define RAPP_ROBOT_VISION
 #include "Includes.ihh"
+
 namespace rapp {
 namespace robot {
+
+
+class VisionImpl;
+
 /**
  * @class vision
  * @brief Abstract Base Class (ABC) Interface for Vision
@@ -14,20 +19,52 @@ class vision
 {
   public:
 
-    // NOTE: PLEASE do NOT include Headers in the namespace or Class Header.
-    //       Any header you want, add into `Includes.ihh` your internal include header
-    //       PLEASE also note that we need to be very careful of dependencies
-    //       imported into the RAPP Project
-    //       This is an ABC - do NOT import OpenCV here, do that in your
-    //       implementation class, using the internal include header
+    /**
+     * Create vision module. Implementation object (pimpl) should be created here.
+     */
+    vision(int argc = 0, char * argv[] = NULL);
 
-    /// NOTE: What about format?
-    virtual std::shared_pointr<rapp::object::picture> captureImage ( 
-                                                                      std::string cameraId, 
-                                                                      int cameraResolution 
-                                                                   ) const = 0; 
-    
+    /**
+     * Destroy vision module. Implementation object should be destroyed here.
+     */
+    ~vision();
+
+    /**
+     * Capture an image frame from the robot’s camera.
+     *
+     * @param camera_id ID of the camera to be used
+     * @param camera_resolution
+     * @param encoding output image encoding type (e.g. "png", "jpg")
+     *
+     * @return captured image as raw byte stream
+     */
+    rapp::object::picture::Ptr captureImage (int camera_id, int camera_resolution, const std::string & encoding);
+
+    /**
+     * Set camera parameter.
+     *
+     * @param camera_id ID of the camera to be used
+     * @param parameter_id ID of the parameter to be changed
+     * @param new_value new value for the selected parameter
+     *
+     * @return true on success, false otherwise
+     */
+    bool setCameraParam(int camera_id, int parameter_id, int new_value);
+
+    /**
+     * Set multiple camera parameters at once.
+     *
+     * @param camera_id ID of the camera to be used
+     * @param params map of pairs param_id->new_value
+     *
+     * @return true on success, false otherwise
+     */
+    bool setCameraParams(int camera_id, const std::map<int, int> & params);
+
+private:
+    VisionImpl * pimpl;
 };
-}
-}
+
+} /* namespace robot */
+} /* namespace rapp */
 #endif
