@@ -24,9 +24,11 @@ class Vision
   
     ~Vision();
     
-    rapp::object::picture captureImage(std::string cameraId, int cameraResolution);
+    rapp::object::picture captureImage(int camera_id, int camera_resolution, const std::string & encoding);
 	
-	bool setCameraParams(int cameraId, int cameraParameterId, int newValue );
+	bool setCameraParam(int camera_id, int camera_parameter_id, int new_value);
+	
+	std::vector<uint8_t> setCameraParams(int camera_id, std::vector<uint32_t> camera_parameter_ids, std::vector<uint32_t> new_values);
 	
 	rapp::object::Matrix2D getTransform(std::string chainName, int space);
     
