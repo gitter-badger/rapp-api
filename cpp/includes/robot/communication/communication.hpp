@@ -4,6 +4,9 @@
 
 namespace rapp {
 namespace robot {
+
+class CommunicationImpl;
+
 /**
  * @class communication
  * @brief Abstract Base Class (ABC) Interface for Robot Communication
