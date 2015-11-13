@@ -54,7 +54,7 @@ class VisionDyn
   
     ~VisionDyn();
     
-	std::vector< std::vector <float> > faceDetect(rapp::object::picture image, std::string cameraId, int cameraResolution);
+	std::vector< std::vector <float> > faceDetect(rapp::object::picture image, std::string camera_id, int camera_resolution);
     
     rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, std::vector<std::vector<float>> robotToCameraMatrix, float landmarkTheoreticalSize = 0.16f);
     
