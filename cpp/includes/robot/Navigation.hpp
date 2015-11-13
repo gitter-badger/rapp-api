@@ -45,7 +45,7 @@ class Navigation
 
     rapp::object::PoseStamped getRobotPose();
 
-    bool setGlobalPose(rapp::object::Pose pose);
+    bool setGlobalPose(rapp::object::PoseStamped rapp_pose);
 
     
   private:
