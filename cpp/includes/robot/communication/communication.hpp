@@ -1,6 +1,7 @@
-#ifndef RAPP_ROBOT_COMM
-#define RAPP_ROBOT_COMM
+#ifndef RAPP_ROBOT_COMMUNICATION
+#define RAPP_ROBOT_COMMUNICATION
 #include "Includes.ihh"
+
 namespace rapp {
 namespace robot {
 /**
@@ -9,55 +10,101 @@ namespace robot {
  * @version 1
  * @date 20-September-2015
  * @author Alex Giokas <a.gkiokas@ortelio.co.uk>
- *
- * This class specifies the interface for all communications.
- * It is your responsibility to implement them appropriately.
  */
 class communication
 {
-  public:
-    
-    enum class Language {ENGLISH, GREEK};
+public:
+	
+	/**
+	 * Language for text-to-speech module
+	 */
+	enum class Language {ENGLISH, GREEK};
 
-    /// Produce Audio from robot's speakers
-    // TODO: Explain all parameters
-    virtual bool playAudio ( 
-                              const std::string & file_path, 
-                              double position, 
-                              double volume, 
-                              double balance, 
-                              bool play_in_loop
-                           )  = 0;
+	/** 
+	 * Create communication module. Implementation object (pimpl) should be created here.
+	 */
+	communication(int argc, char * argv[]);
 
-    /// Produce speec from text
-    virtual bool textToSpeech (
-                                 const std::string str, 
-                                 Language language = Language::ENGLISH
-                              )  = 0;
+	/**
+	 * Destroy communication module. Implementation object should be destroyed here.
+	 */
+	~communication();
 
-    /// ?
-    virtual std::string wordSpotting ( 
-                                        std::array<std::string> dictionary, 
-                                        unsigned int size
-                                     )  = 0;
+	/**
+	 * Produce Audio from robot's speakers
+	 * 
+	 * @param file_path path to the audio file
+	 * @param position 
+	 * @param volume
+	 * @param balance
+	 * @param play_in_loop
+	 * 
+	 * @return
+	 */
+	bool playAudio(const std::string & file_path, double position, double volume, double balance, bool play_in_loop); 
 
-    /// Record audio
-    // TODO: explain parameters 
-    virtual bool captureAudio ( 
-                                 std::shared_ptr<rapp:object::audio> buffer, 
-                                 float waiting_time, 
-                                 float microphone_energy
-                              )  = 0;
+	/** 
+	 * Say given sentence in selected language
+	 * 
+	 * @param str
+	 * @param lanugage
+	 * 
+	 * @return 
+	 */
+	bool textToSpeech(const std::string & str, Language language = Language::ENGLISH);
 
-    /// Get Microphone Energy - NOTE what is the Param @name used for?
-    virtual float getMicrophoneEnergy( std::string name ) const = 0;
+	/**
+	 * Recognize the word included in the database
+	 * 
+	 * @param dictionary
+	 * @param size
+	 * 
+	 * @return
+	 * 
+	 * @todo use vector<string> instead of string[]
+	 */
+	std::string wordSpotting(std::string dictionary[], int size);
 
-    /// Record Voice - NOTE: @param audio pointer will be updated
-    /// If this method is asynchronous or multi-threaded, then you
-    /// need to lock the pointer in your implementation.
-    virtual bool voiceRecord ( const std::shared_ptr<rapp::object::audio> ) = 0;
+	/**
+	 * Record the audio message from the microphones by the desired time
+	 * 
+	 * @param time
+	 * 
+	 * @return
+	 */
+	std::string captureAudio(int time);
+
+	/**
+	 * Record the audio message with silence detection
+	 * 
+	 * @param file_path
+	 * @param waiting_time
+	 * @param microphone_energy
+	 */
+	std::string captureAudio(std::string & file_path, float waiting_time, int microphone_energy);
+
+	/**
+	 * Return signal energy of the selected microphone
+	 * 
+	 * @param name
+	 * 
+	 * @return
+	 */
+	int microphoneEnergy(std::string & name);
+
+	/**
+	 * Record the audio message to the buffer 
+	 * 
+	 * @param start
+	 * @param buffer
+	 */
+	void voiceRecord(bool start, std::vector< std::vector<unsigned char> > & buffer);
+
+private:
+	CommunicationImpl * pimpl;
 
 };
-}
-}
+
+} // namespace robot
+} // namespace rapp
 #endif
