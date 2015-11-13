@@ -27,9 +27,9 @@ bool vision::setCameraParam(int camera_id, int parameter_id, int new_value) {
 	return true;
 }
 
-bool vision::setCameraParams(int camera_id, const std::map<int, int> & params) {
+std::map<int, bool> vision::setCameraParams(int camera_id, const std::map<int, int> & params) {
 	std::cout << "vision::setCameraParams" << std::endl;
-	return true;
+	return std::map<int, bool>();
 }
 
 } /* namespace robot */
