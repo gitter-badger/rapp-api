@@ -57,9 +57,9 @@ class vision
      * @param camera_id ID of the camera to be used
      * @param params map of pairs param_id->new_value
      *
-     * @return true on success, false otherwise
+     * @return success flag for each parameter
      */
-    bool setCameraParams(int camera_id, const std::map<int, int> & params);
+    std::map<int, bool> setCameraParams(int camera_id, const std::map<int, int> & params);
 
 private:
     VisionImpl * pimpl;
