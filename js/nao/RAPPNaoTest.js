@@ -1,29 +1,44 @@
 #!/usr/bin/env node
 
-// An example of using the RAPPNao JS API.
-// Note that all the service calls are asynchronous.
-
 var rapp = require("./RAPPNao.js");
 var services = new rapp.RAPPNao();
 
-// The callback function that will handle the reply of the service.
-function handler(result)
-{ 
-    console.log("Result from rosapi_get_time call:");
-    console.log("time.secs = " + result.time.secs);
+function print_in_bold_and_red(text)
+{
+    console.log("\033[1m\033[31m" + text + "\033[0m");
 }
 
-// Call rosapi_get_time.
-services.rosapi_get_time(handler);
+function handler_1(result)
+{ 
+    print_in_bold_and_red("Result from rosapi_get_time call:");
+	console.log("time.secs = " + result.time.secs);
+}
 
-// Another callback function.
+services.rosapi_get_time(handler_1);
+
+function handler_2(result)
+{ 
+    print_in_bold_and_red("Result from rosapi_service_host call:");
+    console.log("host = " + result.host);
+}
+
+services.rosapi_service_host("/rosapi/get_time", handler_2);
+
 function handler_say(result)
 { 
-    console.log("Result from rapp_say call:");
+    print_in_bold_and_red("Result from rapp_say call:");
     console.log("response = " + result.response);
-    // Stop the application.
     process.exit();
 }
 
-// Call rapp_say.
-services.rapp_say("Hello, my name is NAO", "English", handler_say);
+function handler_moveVel(result)
+{ 
+    print_in_bold_and_red("Result from rapp_moveVel call:");
+    console.log("response = " + result.response);
+    process.exit();
+}
+
+services.rapp_say("Bonjour!", "English", handler_say);
+
+services.rapp_moveVel(0.05, 0, 0, handler_moveVel);
+
