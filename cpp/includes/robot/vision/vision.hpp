@@ -80,7 +80,7 @@ class vision
      * @return vector of informations about the detected face
      */
     
-    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, std::vector<std::vector<float>> robotToCameraMatrix, float landmarkTheoreticalSize = 0.16f);
+    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, std::vector<std::vector<float>> robotToCameraMatrix, double camera_matrix[][3], float landmarkTheoreticalSize = 0.16f);
     /**
      * Detects QR-codes.
      *
