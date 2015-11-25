@@ -1,0 +1,23 @@
+/**
+ * \namespace rapp
+ * 
+ * Namespace holding whole RAPP functionality.
+ */
+ 
+/**
+ * \namespace rapp::robot
+ * 
+ * Namespace for classes and functions related with RAPP Core Agent (running on the robot).
+ */
+ 
+/**
+ * \namespace rapp::local
+ * 
+ * Namespace for classes and functions run on the robot in Dynamic Agent.
+ */
+
+/**
+ * \namespace rapp::cloud
+ * 
+ * Interfaces with RAPP cloud services.
+ */

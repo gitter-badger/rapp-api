@@ -79,4 +79,4 @@ core
 *~
 *ignore_thanos*
 .ropeproject/
-
+*.orig

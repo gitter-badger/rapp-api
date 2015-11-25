@@ -60,16 +60,7 @@ class vision
      * @return success flag for each parameter
      */
     std::map<int, bool> setCameraParams(int camera_id, const std::map<int, int> & params);
-    /**
-     * Set multiple camera parameters at once.
-     *
-     * @param camera_id ID of the camera to be used
-     * @param params map of pairs param_id->new_value
-     *
-     * @return map of pairs param_id->success_flag
-     */
     
-    std::vector< std::vector <float> > faceDetect(rapp::object::picture image, int camera_id, int camera_resolution);
     /**
      * Detects faces.
      *
@@ -79,8 +70,8 @@ class vision
      *
      * @return vector of informations about the detected face
      */
+    std::vector< std::vector <float> > faceDetect(rapp::object::picture image, int camera_id, int camera_resolution);
     
-    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, std::vector<std::vector<float>> robotToCameraMatrix, double camera_matrix[][3], float landmarkTheoreticalSize = 0.16f);
     /**
      * Detects QR-codes.
      *
@@ -91,6 +82,7 @@ class vision
      *
      * @return QR-codes informations
      */
+    rapp::object::QRCode3D qrCodeDetection(rapp::object::picture image, std::vector<std::vector<float>> robotToCameraMatrix, double camera_matrix[][3], float landmarkTheoreticalSize = 0.16f);
 
 private:
     VisionImpl * pimpl;
