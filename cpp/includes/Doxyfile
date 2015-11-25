@@ -715,7 +715,7 @@ WARN_IF_DOC_ERROR      = YES
 # documentation, but not about the absence of documentation.
 # The default value is: NO.
 
-WARN_NO_PARAMDOC       = NO
+WARN_NO_PARAMDOC       = YES
 
 # The WARN_FORMAT tag determines the format of the warning messages that doxygen
 # can produce. The string should contain the $file, $line, and $text tags, which
@@ -743,7 +743,19 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  =
+INPUT                  = objects/matrix2D \
+                         objects/qrCode \
+                         objects/QRCode3D \
+                         objects/face \
+                         objects/qrCodeMap \
+                         objects/path \
+                         objects/object \
+                         objects/audio \
+                         objects/poseStamped \
+                         objects/picture \
+                         dox \
+                         cloud/objectDetector \
+                         robot
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
