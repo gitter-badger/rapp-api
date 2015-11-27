@@ -21,7 +21,7 @@ The below table presents the up-to-date available RAPP Platform Service calls, t
 | available_services                |          |              | ✓        |
 | ontology_subclasses_of            |          |              | ✓        |
 | ontology_superclasses_of          |          |              | ✓        |
-| ontology_is_supsuperclass_of      |          |              | ✓        |
+| ontology_is_subsuperclass_of      |          |              | ✓        |
 | cognitive_test_chooser            |          |              | ✓        |
 | record_cognitive_test_performance |          |              | ✓        |
 
